@@ -56,12 +56,13 @@ class App extends React.Component {
     );
   };
 
-  componentDidMount() {
-    const locStor = JSON.parse(localStorage.getItem('state'));
-    this.setState(prevState => ({ ...prevState, ...locStor }));
-  }
-  componentDidUpdate() {
-    localStorage.setItem('state', JSON.stringify(this.state));
+  // componentDidMount() {
+  //   const locStor = JSON.parse(localStorage.getItem('state'));
+  //   this.setState(prevState => ({ ...prevState, ...locStor }));
+  // }
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.contacts.length !== this.state.contacts.length)
+      localStorage.setItem('state', JSON.stringify(this.state));
   }
 
   render() {
