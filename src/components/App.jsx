@@ -19,6 +19,18 @@ class App extends React.Component {
     filter: '',
   };
 
+  componentDidMount() {
+    // console.log('DM');
+    const locStor = JSON.parse(localStorage.getItem('state')) ?? [];
+    this.setState({ contacts: locStor });
+    // console.log('dM', locStor);
+  }
+  componentDidUpdate(prevProps, prevState) {
+    // console.log(this.state.contacts);
+    if (prevState.contacts.length !== this.state.contacts.length)
+      localStorage.setItem('state', JSON.stringify(this.state.contacts));
+  }
+
   onSubmit = (name, number) => {
     const newData = {
       id: nanoid(),
@@ -47,22 +59,15 @@ class App extends React.Component {
   };
 
   onChange = event => {
+    console.log('object');
     this.setState({ filter: event.target.value });
   };
 
-  filter = () => {
+  filter() {
+    // console.log(this.state.contacts);
     return this.state.contacts.filter(el =>
       el.name.toLowerCase().includes(this.state.filter.toLowerCase())
     );
-  };
-
-  // componentDidMount() {
-  //   const locStor = JSON.parse(localStorage.getItem('state'));
-  //   this.setState(prevState => ({ ...prevState, ...locStor }));
-  // }
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.contacts.length !== this.state.contacts.length)
-      localStorage.setItem('state', JSON.stringify(this.state));
   }
 
   render() {
