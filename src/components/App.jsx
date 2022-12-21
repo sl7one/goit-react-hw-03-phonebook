@@ -20,13 +20,10 @@ class App extends React.Component {
   };
 
   componentDidMount() {
-    // console.log('DM');
     const locStor = JSON.parse(localStorage.getItem('state')) ?? [];
     this.setState({ contacts: locStor });
-    // console.log('dM', locStor);
   }
   componentDidUpdate(prevProps, prevState) {
-    // console.log(this.state.contacts);
     if (prevState.contacts.length !== this.state.contacts.length)
       localStorage.setItem('state', JSON.stringify(this.state.contacts));
   }
@@ -64,7 +61,6 @@ class App extends React.Component {
   };
 
   filter() {
-    // console.log(this.state.contacts);
     return this.state.contacts.filter(el =>
       el.name.toLowerCase().includes(this.state.filter.toLowerCase())
     );
